@@ -11,7 +11,7 @@ z to turn left, x to turn right
 <hr/>
 
 
-<script type="text/javascript" src="snek.js"></script>
+<script type="text/javascript" src="https://raw.githubusercontent.com/jmcd/snek/master/snek.js"></script>
 <script type="text/javascript">
 
 	document.addEventListener("DOMContentLoaded", function(event) { 
