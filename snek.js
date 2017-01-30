@@ -209,11 +209,11 @@ function Game(size, gameListener) {
 	}
 
 	function dropFood() {
-		var i = Math.floor(Math.random() * size.x * size.y - snek.body().length)
+		var i = Math.floor(Math.random() * (size.x * size.y - snek.body().length));
 		while (snek.body().indexOf(i) !== -1) {
 			i += 1;
 		}
-		food = i;
+		food = i;	
 	}
 
 	function notifyScoreDidChange() {
@@ -243,6 +243,16 @@ function Game(size, gameListener) {
 			(Math.abs(prevHead-head) == 1 && row(head) !== row(prevHead));
 	}
 
+	function isInCollisionWithSelf(body) {
+		var head = body[0];
+		for (var i = 1; i < body.length; i++) {
+			if (head === body[i]) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	function setGameOver(b) {
 		gameOver = b;
 		gameListener.gameOverDidChange(gameOver);
@@ -260,7 +270,7 @@ function Game(size, gameListener) {
 			var snekChanged = snek.didMove(timeInterval);
 			if (snekChanged) {
 				var head = snek.head();
-				if (headIsOutOfBounds(prevHead, head)) {
+				if (headIsOutOfBounds(prevHead, head) || isInCollisionWithSelf(snek.body())) {
 					setGameOver(true);
 					return false;
 				}
